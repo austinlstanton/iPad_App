@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Heatmap</title>
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    
+    <!--JQuery Mobile Stylesheet-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+        
+   
+    
+    <!--JQuery Google CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <!--JQuery Mobile CDN-->
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH8ddEphCQYJWsy475_rbGd5Sgo0cqwaw&sensor=true&libraries=visualization">
+    </script>
+   <script type="text/javascript" src="scripts.js"></script> 
+   
+   <script type="text/javascript">
+      var map, heatmapData=[], heatmap;
+      
+       heatmapData = [
+           {location: new google.maps.LatLng(39.7953376, -75.170244), weight: 3},
+              new google.maps.LatLng(39.953376, -75.170244),
+            {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 2},
+            {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.190244), weight: 2},
+            {location: new google.maps.LatLng(39.9553376, -75.185244), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.184244), weight: 3},
+              new google.maps.LatLng(39.953376, -75.180242),
+              {location: new google.maps.LatLng(39.9553376, -75.180239), weight: 3},
+              new google.maps.LatLng(39.953376, -75.190241),
+              new google.maps.LatLng(39.953376, -75.170240),
+            {location: new google.maps.LatLng(39.9553376, -75.170240), weight: 2},
+            {location: new google.maps.LatLng(39.9553376, -75.170241), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.170242), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.170234), weight: 2},
+            {location: new google.maps.LatLng(39.9553376, -75.170233), weight: 3},
+            {location: new google.maps.LatLng(39.9553376, -75.184244), weight: 3},
+              new google.maps.LatLng(39.953376, -75.170246),
+              new google.maps.LatLng(39.953376, -75.170249),
+              new google.maps.LatLng(39.953376, -75.170248),
+              new google.maps.LatLng(39.953376, -75.170245),
+              new google.maps.LatLng(40.08416, -75.62160),
+              new google.maps.LatLng(40.08416, -75.62162),
+              new google.maps.LatLng(40.08416, -75.62169),
+              new google.maps.LatLng(40.58416, -75.62161),
+              new google.maps.LatLng(40.58416, -75.62167),
+              new google.maps.LatLng(40.58416, -75.62168)
+            ];
+   
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(39.953376, -75.170244),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+     
+             map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+            
+            
+             heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData,
+        //    map: map
+            });
+        
+
+         heatmap.setMap(map);   
+        
+      }
+       //End Initialize
+      
+      function toggleHeatMap () {
+          heatmap.setMap(heatmap.getMap() ? null : map);
+          
+      }
+  
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+     
+      
+    </script> 
+ 
+     <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    </head>
+    <body>
+    
+    <div class="container">
+        <div class="wrapper">
+        <header>
+            
+             <h1 class="title">Site Selection Tour</h1>
+            
+        </header>
+        
+           
+ 
+    <div class="main_body">
+        
+         <img src="images/Staples_Logo.png" width="200" height="100" alt="Staples Logo">
+        
+        <h4>Address</h4>
+        
+        <hr>
+        
+       <div id="map-canvas" class="well"></div>
+       <div class="map-menu well">
+          <p>
+           <button type="button" class="btn btn-default" href="#" onClick="toggleHeatMap();">Turn Off Heatmap</button>
+          
+          </p>
+       </div>
+       
+       <div class="site_properties">
+        
+         <img class="property_img" src="http://marketing.collierslanard.com/pa/0images/3700industrial.jpg" width="400" alt="stock photo">    
+        
+        <div class="description">
+            Property descrtiption. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque feugiat justo sit amet ipsum elementum interdum. Nulla ornare consequat nisl, 
+            eget pharetra lectus cursus vitae. Nullam suscipit dolor vitae molestie congue. 
+            Fusce pellentesque nisi a cursus condimentum. Vestibulum hendrerit nulla sit amet augue lobortis mollis. 
+            Integer eget luctus massa, euismod convallis libero. Morbi ac varius ipsum.
+        </div>
+        <div class="demos">
+            <h4>Statistics &amp; Demographics</h4>
+            <table class="table table-striped">
+                <tr>
+                    <td></td>
+                    <td>1 Mile</td>
+                    <td>3 Miles</td>
+                    <td>5 Miles</td>
+                </tr>
+                <tr>
+                    <td>Population</td>
+                    <td>30,000</td>
+                    <td>70,000</td>
+                    <td>300,000</td>
+                </tr>
+                <tr>
+                    <td>Avg. Household Income</td>
+                    <td>$22,000</td>
+                    <td>$53,000</td>
+                    <td>$70,000</td>
+                </tr>
+            </table>
+        </div>
+        
+       </div>
+        
+      
+    
+    </div> <!-- End Main Body -->   
+   
+     <div class="menu_bar">
+     
+            
+            <button type="button" class="btn btn-default btn-lg back-button">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            </button>
+        
+        
+           
+           <button type="button" class="btn btn-default btn-lg next-button">
+                <span class="glyphicon glyphicon-circle-arrow-right">
+                   
+                </span>
+            </button>
+       
+       
+        
+             <button type="button" class="btn btn-default btn-lg home-button popover-with-html" title ="Menu" data-placement="top">
+                <span class="glyphicon glyphicon-th"></span>
+               
+            </button>
+            
+                <div id="menu-list">
+                    <ul id="poplist">
+                       <li><a href="#">Cover</a></li>
+                       <hr>
+                      
+                        <li><a href="#">Table of Contents</a></li>
+                        <hr>
+                       
+                       <li><a href="#">Map Overview</a></li>
+                       <hr>
+                       
+                       <li><a href="#">Site Page</a></li>
+                       <hr>
+                       
+                       <li><a href="#">Back Cover</a></li>
+                    </ul>
+                </div>
+       
+         </div>
+         
+   </div> <!-- End Wrapper -->
+  </div> <!--End Container -->
+
+    </body>
+</html>

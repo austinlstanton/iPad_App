@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staples | Tour Overview</title>
+        
+      <link rel="apple-touch-icon" href="http://marketing.collierslanard.com/favicon.png"/>
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+ 
+     <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    </head>
+    <body>
+    
+    <div class="container">
+        <div class="wrapper">
+        <header>
+            
+             <h1 class="title">Site Selection Tour</h1>
+            
+        </header>
+        
+           
+ 
+    <div class="main_body">
+        
+         <img src="images/Staples_Logo.png" width="200" height="100" alt="Staples Logo">
+        
+        <h4>Address</h4>
+        
+        <hr>
+        
+       <div id="map-canvas" class="well"></div>
+       <div class="map-menu well">
+          <p>
+           <button type="button" class="btn btn-default" href="#" data-toggle="buttons-checkbox" onClick="toggleHeatMap();">Heatmap</button>
+          
+          </p>
+       </div>
+       
+      
+        <div class="schedule">
+            <h4>Tour Itinerary</h4>
+            <table class="table table-striped">
+                <tr>
+                    <td><strong>SITE #</strong></td>
+                    <td><strong>TIME</strong></td>
+                    <td><strong>LOCATION</strong></td>
+                    <td><strong>NOTES</strong></td>
+                   
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>8:00 am - 9:00 am</td>
+                    <td>Address of Site #1</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Maecenas rhoncus eros ipsum. Duis condimentum ultrices neque, 
+                    non vulputate quam varius non.</td>
+                    
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>9:00 am - 10:00 am</td>
+                    <td>Address of Site #2</td>
+                    <td></td>
+                   
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>10:00 am - 11:00 am</td>
+                    <td>Address of Site #3</td>
+                    <td></td>
+                    
+                </tr>
+                 <tr>
+                    <td>4</td>
+                    <td>11:00 am - 12:00 pm</td>
+                    <td>Address of Site #4</td>
+                    <td></td>
+                   
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>12:00 pm - 1:00 pm</td>
+                    <td>Lunch</td>
+                    <td></td>
+                   
+                </tr>
+                 <tr>
+                    <td>5</td>
+                    <td>1:00 pm - 2:00 pm</td>
+                    <td>Address of Site #5</td>
+                    <td></td>
+                   
+                </tr>
+                 <tr>
+                    <td>6</td>
+                    <td>2:00 pm - 3:00 pm</td>
+                    <td>Address of Site #6</td>
+                    <td></td>
+                  
+                </tr>
+            </table>
+        </div>
+        
+      
+    
+    </div> <!-- End Main Body -->   
+   
+     <div class="menu_bar">
+     
+            
+            <a href="toc.html" class="btn btn-default btn-lg back-button glyphicon glyphicon-circle-arrow-left" role="button">
+               <!-- <span class="glyphicon glyphicon-circle-arrow-left"></span> -->
+            </a>
+        
+        
+           
+           <a href="site.html" class="btn btn-default btn-lg next-button glyphicon glyphicon-circle-arrow-right" role="button">
+             <!--   <span class="glyphicon glyphicon-circle-arrow-right"> </span> -->
+            </a>
+       
+       
+        
+             <button type="button" class="btn btn-default btn-lg home-button popover-with-html" title ="Menu" data-placement="top">
+                <span class="glyphicon glyphicon-th"></span>
+               
+            </button>
+            
+                <div id="menu-list">
+                     <ul id="poplist">
+                       <li><a href="index.html">Cover</a></li>
+                       <hr>
+                      
+                        <li><a href="toc.html">Table of Contents</a></li>
+                        <hr>
+                       
+                       <li><a href="overview.html">Map Overview</a></li>
+                       <hr>
+                       
+                       <li><a href="site.html">Site Page</a></li>
+                       <hr>
+                       
+                       <li><a href="about.html">About Colliers</a></li>
+                    </ul>
+                </div>
+       
+         </div>
+         
+   </div> <!-- End Wrapper -->
+  </div> <!--End Container -->
+
+<!-- All Scripts -->
+
+  <!--JQuery Google CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+  
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+      src="//maps.googleapis.com/maps/api/js?key=AIzaSyAH8ddEphCQYJWsy475_rbGd5Sgo0cqwaw&sensor=true&libraries=visualization">
+    </script>
+   <script type="text/javascript" src="scripts.js"></script> 
+  
+   
+   <script type="text/javascript">
+      var map, heatmap, heatmapData=[], sitePoints=[];
+      
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(39.953376, -75.570244),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+     
+          map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+            
+         
+        
+        heatmapData = [
+                   {location: new google.maps.LatLng(39.7953376, -75.170244), weight: 3},
+                      new google.maps.LatLng(39.953376, -75.170244),
+                    {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 2},
+                    {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.180244), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.190244), weight: 2},
+                    {location: new google.maps.LatLng(39.9553376, -75.185244), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.184244), weight: 3},
+                    {location: new google.maps.LatLng(39.9753376, -75.194244), weight: 3},
+                    {location: new google.maps.LatLng(39.9765376, -75.194249), weight: 3},
+                    {location: new google.maps.LatLng(39.9765389, -75.194357), weight: 3},
+                      new google.maps.LatLng(39.953376, -75.180242),
+                      {location: new google.maps.LatLng(39.9553376, -75.180239), weight: 3},
+                      new google.maps.LatLng(39.953376, -75.190241),
+                      new google.maps.LatLng(39.953376, -75.170240),
+                    {location: new google.maps.LatLng(39.9553376, -75.170240), weight: 2},
+                    {location: new google.maps.LatLng(39.9553376, -75.170241), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.170242), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.170234), weight: 2},
+                    {location: new google.maps.LatLng(39.9553376, -75.170233), weight: 3},
+                    {location: new google.maps.LatLng(39.9553376, -75.184244), weight: 3},
+                      new google.maps.LatLng(39.953376, -75.170246),
+                      new google.maps.LatLng(39.953376, -75.170249),
+                      new google.maps.LatLng(39.953376, -75.170248),
+                      new google.maps.LatLng(39.953376, -75.170245),
+                      new google.maps.LatLng(40.08416, -75.62160),
+                      new google.maps.LatLng(40.08416, -75.62162),
+                      new google.maps.LatLng(40.08416, -75.62169),
+                      new google.maps.LatLng(40.58416, -75.62161),
+                      new google.maps.LatLng(40.58416, -75.62167),
+                      new google.maps.LatLng(40.58416, -75.62168)
+                    ];
+            
+            heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData
+            });
+        
+        sitePoints = [
+            
+        {
+             'position': new google.maps.LatLng(39.95338, -75.17024),
+             'title': 'Philadelphia',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #1</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+
+                              '</div>'+
+                              '</div>',
+       
+             
+         },
+         
+           {
+             'position': new google.maps.LatLng(40.58416, -75.62160),
+             'title': 'Allentown',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #2</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+
+                              '</div>'+
+                              '</div>',
+            
+         },
+         
+           {
+             'position': new google.maps.LatLng(40.07124, -75.30756),
+             'title': 'Conshohocken',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #3</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+
+                              '</div>'+
+                              '</div>',
+            
+         },
+         
+           {
+             'position': new google.maps.LatLng(39.74655, -75.55054),
+             'title': 'Delaware',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #4</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+  
+                              '</div>'+
+                              '</div>',
+            
+         },
+            
+              {
+             'position': new google.maps.LatLng(40.26179, -76.88561),
+             'title': 'Harrisburg',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #5</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+
+                              '</div>'+
+                              '</div>',
+            
+         },
+         
+           {
+             'position': new google.maps.LatLng(39.91541, -74.94363),
+             'title': 'Mount Laurel',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<h3 id="firstHeading" class="firstHeading">Address of Site #6</h3>'+
+                              '<div id="bodyContent">'+
+                              '<p>Brief description of site</p>'+
+                              '<a href="site.html">View this site.</a>'+
+                              '</div>'+
+                              '</div>',
+            
+         }
+            
+      ];
+      
+      plotSites();
+        
+      } //End Initialize
+      
+    function plotSites(){    
+        for (var i = 0; i < sitePoints.length; i++) {
+
+            var  marker = new google.maps.Marker({
+                 position: sitePoints[i].position,
+                 title: sitePoints[i].title,
+             });
+            
+            addInfoWindow(marker, i);
+
+              marker.setMap(map); 
+        }
+        
+          
+    } //End plotSites
+    
+    function addInfoWindow(marker, index) {
+
+            var info = sitePoints[index].contentString;
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: info
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
+            
+            
+        }
+    //End addInfoWindow
+       
+ 
+
+      function toggleHeatMap () {
+         heatmap.setMap(heatmap.getMap() ? null : map);
+          
+      }
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+      
+      
+    </script> 
+
+    </body>
+</html>

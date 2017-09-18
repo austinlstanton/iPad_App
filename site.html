@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staples | Site Page</title>
+        
+        <link rel="apple-touch-icon" href="http://marketing.collierslanard.com/favicon.png"/>
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+ 
+     <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    </head>
+    <body>
+    
+    <div class="container">
+        <div class="wrapper">
+        <header>
+            
+             <h1 class="title">Site Selection Tour</h1>
+            
+        </header>
+        
+           
+ 
+    <div class="main_body">
+        
+         <img src="images/Staples_Logo.png" width="200" height="100" alt="Staples Logo">
+        
+        <h4>Address</h4>
+        
+        <hr>
+        
+       <div id="map-canvas" class="well"></div>
+       <div class="map-menu well">
+          <p>
+           <button type="button" class="btn btn-default" href="#" data-toggle="buttons-checkbox" onClick="toggleTrafficLayer();">Traffic</button>
+           <button type="button" class="btn btn-default" href="#" data-toggle="buttons-checkbox" onClick="toggleRailLayer();">Regional Rail</button>
+           <button type="button" class="btn btn-default" href="#" data-toggle="buttons-checkbox" onClick="toggleTransitLayer();">Bus Route</button>
+           <button type="button" class="btn btn-default" href="#" data-toggle="buttons-checkbox" onclick="toggleRetailLayer();">Nearby Retail</button>
+          </p>
+       </div>
+       
+       <div class="site_properties">
+        
+         <img class="property_img" src="images/3700industrial.jpg" width="400" alt="stock photo">    
+        
+        <div class="description">
+            Property descrtiption. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque feugiat justo sit amet ipsum elementum interdum. Nulla ornare consequat nisl, 
+            eget pharetra lectus cursus vitae. Nullam suscipit dolor vitae molestie congue. 
+            Fusce pellentesque nisi a cursus condimentum. Vestibulum hendrerit nulla sit amet augue lobortis mollis. 
+            Integer eget luctus massa, euismod convallis libero. Morbi ac varius ipsum.
+        </div>
+        <div class="demos">
+            <h4>Statistics &amp; Demographics</h4>
+            <table class="table table-striped">
+                <tr>
+                    <td></td>
+                    <td>1 Mile</td>
+                    <td>3 Miles</td>
+                    <td>5 Miles</td>
+                </tr>
+                <tr>
+                    <td>Population</td>
+                    <td>30,000</td>
+                    <td>70,000</td>
+                    <td>300,000</td>
+                </tr>
+                <tr>
+                    <td>Avg. Household Income</td>
+                    <td>$22,000</td>
+                    <td>$53,000</td>
+                    <td>$70,000</td>
+                </tr>
+            </table>
+        </div>
+        
+       </div>
+        
+      
+    
+    </div> <!-- End Main Body -->   
+   
+     <div class="menu_bar">
+     
+            
+       
+          	<a href="overview.html" class="btn btn-default btn-lg back-button glyphicon glyphicon-circle-arrow-left" role="button">
+            <!--    <span class="glyphicon glyphicon-circle-arrow-left"></span> -->
+            </a>
+
+        
+           
+        	
+             <a href="about.html" class="btn btn-default btn-lg next-button glyphicon glyphicon-circle-arrow-right" role="button">
+           		
+              <!--  <span class="glyphicon glyphicon-circle-arrow-right"> </span> -->
+                   
+               	
+     		 </a> 
+       	
+       
+        
+             <button type="button" class="btn btn-default btn-lg home-button popover-with-html" title ="Menu" data-placement="top">
+                <span class="glyphicon glyphicon-th"></span>
+               
+            </button>
+            
+                <div id="menu-list">
+                    <ul id="poplist">
+                      <li><a href="index.html">Cover</a></li>
+                       <hr>
+                      
+                        <li><a href="toc.html">Table of Contents</a></li>
+                        <hr>
+                       
+                       <li><a href="overview.html">Map Overview</a></li>
+                       <hr>
+                       
+                       <li><a href="site.html">Site Page</a></li>
+                       <hr>
+                       
+                       <li><a href="about.html">About Colliers</a></li>
+                    </ul>
+                </div>
+       
+         </div>
+         
+   </div> <!-- End Wrapper -->
+  </div> <!--End Container -->
+  
+  <!-- All Scripts -->
+  
+     <!--JQuery Google CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+  
+    
+    <!-- Latest compiled and minified JavaScript -->
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH8ddEphCQYJWsy475_rbGd5Sgo0cqwaw&sensor=true&libraries=visualization">
+    </script>
+   <script type="text/javascript" src="scripts.js"></script> 
+   
+   
+   <script type="text/javascript">
+      var map, trafficLayer, transitLayer, railLayer, retailPoints=[], retailMarkers=[];
+      
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(39.953376, -75.170244),
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+     
+          map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+        trafficLayer = new google.maps.TrafficLayer();
+        railLayer = new google.maps.KmlLayer({
+        url: 'http://www3.septa.org/hackathon/TrainView/regionalrail.kml',
+        preserveViewport: true
+        });
+        transitLayer = new google.maps.KmlLayer({
+        url: 'http://www3.septa.org/transitview/kml/42.kml',
+        preserveViewport: true
+        });  
+        
+        retailPoints = [
+            
+                  {
+             'position': new google.maps.LatLng(39.953376, -75.170244),
+             'title': 'Citizens Bank Center',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<img src="images/Staples_Logo.png" width=100 border=0>'+
+                             
+                              '</div>'+
+                              '</div>',
+                              
+             'image': "images/logo_icon.png",
+         },
+         
+           {
+             'position': new google.maps.LatLng(39.953376, -75.180244),
+             'title': 'Basil Bar & Grill',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<img src="images/Staples_Logo.png" width=100 border=0>'+
+                              '</div>'+
+                              '</div>',
+            'image': "images/logo_icon.png",
+            
+         },
+         
+            {
+             'position': new google.maps.LatLng(39.949379, -75.180545),
+             'title': 'Basil Bar & Grill',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<img src="images/Staples_Logo.png" width=100 border=0>'+
+                              '</div>'+
+                              '</div>',
+            'image': "images/logo_icon.png",
+            
+         },
+         
+             {
+             'position': new google.maps.LatLng(39.965356, -75.137545),
+             'title': 'Basil Bar & Grill',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<img src="images/Staples_Logo.png" width=100 border=0>'+
+                              '</div>'+
+                              '</div>',
+            'image': "images/logo_icon.png",
+            
+         },
+         
+              {
+             'position': new google.maps.LatLng(39.945356, -75.129545),
+             'title': 'Basil Bar & Grill',
+             'contentString': '<div id="content">'+
+                              '<div id="siteNotice">'+
+                              '</div>'+
+                              '<img src="images/Staples_Logo.png" width=100 border=0>'+
+                              '</div>'+
+                              '</div>',
+            'image': "images/logo_icon.png",
+            
+         },
+            
+      ];
+      
+      plotRetail();
+        
+      }
+      //End Initialize
+      
+    function plotRetail(){    
+        for (var i = 0; i < retailPoints.length; i++) {
+             var marker = new google.maps.Marker({
+                 position: retailPoints[i].position,
+                 title: retailPoints[i].title,
+                 icon: retailPoints[i].image
+             });
+             
+             addInfoWindow(marker, i);
+             
+             retailMarkers[i] = marker;
+        }
+    }
+       
+    
+        function addInfoWindow(marker, index) {
+
+            var info = retailPoints[index].contentString;
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: info
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
+            
+           
+            
+        } 
+        
+        
+       
+       
+     
+      
+      function toggleTrafficLayer () {
+          trafficLayer.setMap(trafficLayer.getMap() ? null : map);
+          
+      }
+      
+      function toggleRailLayer () {
+          railLayer.setMap(railLayer.getMap() ? null : map);
+          
+      }
+      
+      function toggleTransitLayer () {
+          transitLayer.setMap(transitLayer.getMap() ? null : map);
+          
+      }
+      
+      function toggleRetailLayer () {
+            for (var i =0; i<retailMarkers.length; i++) {
+                var marker = retailMarkers[i];
+                marker.setMap(marker.getMap() ? null : map);
+            }
+         
+      }
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+     
+      
+    </script> 
+
+    </body>
+</html>
